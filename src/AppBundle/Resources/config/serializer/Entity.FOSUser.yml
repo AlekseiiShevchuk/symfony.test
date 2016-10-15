@@ -1,0 +1,7 @@
+AppBundle\Entity\FOSUser:
+  exclusion_policy: ALL
+  properties:
+    id:
+      expose: true
+      groups: ['user']
+
