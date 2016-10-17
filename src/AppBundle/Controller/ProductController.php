@@ -22,10 +22,10 @@ class ProductController extends Controller
      */
     public function getProductsAction()
     {
-        $users = $this->get('doctrine.orm.entity_manager')
+        $products = $this->get('doctrine.orm.entity_manager')
             ->getRepository('AppBundle:Product')
             ->findAll();
-        return $users;
+        return $products;
 
     }
 
@@ -35,14 +35,30 @@ class ProductController extends Controller
      */
     public function getProductAction(Request $request)
     {
-        $user = $this->get('doctrine.orm.entity_manager')
+        $product = $this->get('doctrine.orm.entity_manager')
             ->getRepository('AppBundle:Product')
             ->find($request->get('id'));
 
-        if (empty($user)) {
+        if (empty($product)) {
             return $this->productNotFound();
         }
-        return $user;
+        return $product;
+    }
+
+    /**
+     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @Rest\Delete("/products/{id}")
+     */
+    public function removeProductAction(Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $product = $em->getRepository('AppBundle:Product')
+            ->find($request->get('id'));
+
+        if ($product) {
+            $em->remove($product);
+            $em->flush();
+        }
     }
 
 
