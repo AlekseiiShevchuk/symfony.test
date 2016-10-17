@@ -10,7 +10,7 @@ class DefaultControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/web/');
+        $crawler = $client->request('GET', '/web/app_dev.php');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('Welcome to Symfony', $crawler->html());

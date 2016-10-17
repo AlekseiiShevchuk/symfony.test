@@ -1,20 +1,16 @@
 <?php
+// src/AppBundle/Entity/User.php
 
 namespace AppBundle\Entity;
 
-use FOS\UserBundle\Model\User;
+use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * FOSUser
- *
- * @ORM\Table(name="fos_users")
  * @ORM\Entity
- * @UniqueEntity("email")
- * @UniqueEntity("username")
+ * @ORM\Table(name="fos_user")
  */
-class FOSUser extends User
+class User extends BaseUser
 {
     /**
      * @ORM\Id

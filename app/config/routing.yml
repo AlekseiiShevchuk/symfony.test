@@ -4,7 +4,7 @@ app:
 
 users:
     type:     rest
-    resource: AppBundle\Controller\UserController
+    resource: AppBundle\Controller\ProductController
     prefix:   /api
 
 fos_user:

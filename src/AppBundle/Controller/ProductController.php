@@ -11,43 +11,43 @@ use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
 
 
-class UserController extends Controller
+class ProductController extends Controller
 {
 
     use FOSRestTrait;
 
     /**
      * @Rest\View()
-     * @Rest\Get("/users")
+     * @Rest\Get("/products")
      */
-    public function getUsersAction()
+    public function getProductsAction()
     {
         $users = $this->get('doctrine.orm.entity_manager')
-            ->getRepository('AppBundle:FOSUser')
+            ->getRepository('AppBundle:Product')
             ->findAll();
         return $users;
 
     }
 
     /**
-     * @Rest\View(serializerGroups={"user"})
-     * @Rest\Get("/users/{id}")
+     * @Rest\View(serializerGroups={"product"})
+     * @Rest\Get("/products/{id}")
      */
-    public function getUserAction(Request $request)
+    public function getProductAction(Request $request)
     {
         $user = $this->get('doctrine.orm.entity_manager')
-            ->getRepository('AppBundle:User')
+            ->getRepository('AppBundle:Product')
             ->find($request->get('id'));
 
         if (empty($user)) {
-            return $this->userNotFound();
+            return $this->productNotFound();
         }
         return $user;
     }
 
 
-    private function userNotFound()
+    private function productNotFound()
     {
-        return $this->view(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+        return $this->view(['message' => 'Product not found'], Response::HTTP_NOT_FOUND);
     }
 }
