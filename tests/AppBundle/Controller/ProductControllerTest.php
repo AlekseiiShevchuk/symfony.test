@@ -14,7 +14,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertContains('product1', $crawler->html());
-        $this->assertContains('products2', $crawler->html());
+        $this->assertContains('product2', $crawler->html());
     }
 
     public function testGetProduct()
