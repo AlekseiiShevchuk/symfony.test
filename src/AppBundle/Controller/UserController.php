@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+
 use FOS\RestBundle\Controller\ControllerTrait as FOSRestTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,18 +22,11 @@ class UserController extends Controller
      */
     public function getUsersAction()
     {
-        $users = [
-            [
-                'name' => 'user1',
-                'surname' => 'userSurname1'
-            ],
-            [
-                'name' => 'user2',
-                'surname' => 'userSurname2'
-            ]
-        ];
-
+        $users = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('AppBundle:FOSUser')
+            ->findAll();
         return $users;
+
     }
 
     /**
@@ -41,15 +35,13 @@ class UserController extends Controller
      */
     public function getUserAction(Request $request)
     {
-        $user = [
-            'name' => 'user1',
-            'surname' => 'usersurname1'
-        ];
+        $user = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('AppBundle:User')
+            ->find($request->get('id'));
 
-        if ($request->get('id') > 1) {
+        if (empty($user)) {
             return $this->userNotFound();
         }
-
         return $user;
     }
 
